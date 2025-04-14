@@ -4,6 +4,31 @@ class Indicators:
     def __init__(self, data):
         self.data = data
 
+    # Returns open of a specified bar
+    def Open(self, location):
+        loc = len(self.data)-1-location
+        return self.data[loc][0]
+    
+    # Returns high of a specified bar
+    def High(self, location):
+        loc = len(self.data)-1-location
+        return self.data[loc][1]
+    
+    # Returns low of a specified bar
+    def Low(self, location):
+        loc = len(self.data)-1-location
+        return self.data[loc][2]
+    
+    # Returns close of a specified bar
+    def Close(self, location):
+        loc = len(self.data)-1-location
+        return self.data[loc][3]
+
+    # Returns volume of a specified bar
+    def Volume(self, location):
+        loc = len(self.data)-1-location
+        return self.data[loc][4]
+
     # Returns simple moving average
     def SMA(self, period):
         netSum = 0
@@ -23,11 +48,6 @@ class Indicators:
             atr += TR/period
         return atr
     
-    # Returns volume of a specified bar
-    def Volume(self, location):
-        loc = len(self.data)-1-location
-        return self.data[loc][4]
-    
     # Returns volume weighted moving average
     def VWMA(self, period):
         closeList = []
@@ -44,9 +64,10 @@ class Indicators:
     
     # Returns average volume per dollar using atr of specified bar
     def AVPD(self, location):
-        volume = self.data[len(self.data)-(location+1)][4]
-        high = self.data[len(self.data)-(location+1)][1]
-        low = self.data[len(self.data)-(location+1)][2]
+        loc = len(self.data)-(location+1)
+        volume = self.data[loc][4]
+        high = self.data[loc][1]
+        low = self.data[loc][2]
         return volume / (high-low+1)
     
     # Returns a list of standard deviation uppper, lower, and regular
@@ -66,4 +87,3 @@ class Indicators:
         returnList.append(mean-(sdv*multiplier))
         returnList.append(sdv)
         return returnList
-    
