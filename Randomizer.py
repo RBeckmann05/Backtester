@@ -1,0 +1,23 @@
+import random
+
+#data = {0 : [10, 11, 9, 10, 1000], # Bar number : open, high, low, close, volume
+#        1 : [10, 12, 8, 10, 500]} 
+
+def GetRandomData(barsCount=1000, volumeLow=300, volumeHigh=1500, ogOpen=10, ogClose=10, ogVolume=1000):
+    data = {}
+
+    openPrice = ogOpen
+    closePrice = ogClose
+    volume = ogVolume
+
+    for i in range(barsCount):
+        # Simulate a small change
+        openPrice = closePrice
+        high = openPrice + random.uniform(0, 2)
+        low = openPrice - random.uniform(0, 2)
+        closePrice = random.uniform(low, high)
+        volume = random.randint(volumeLow, volumeHigh)
+
+        data[i] = [round(openPrice, 2), round(high, 2), round(low, 2), round(closePrice, 2), volume]
+
+    return data
