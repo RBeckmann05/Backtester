@@ -57,6 +57,13 @@ if __name__ == "__main__":
             filled = order.SubmitOrder(filled, "sell", sellOrderType, sell)
             pnlChange = True
             orderCount += 1
+        
+        # Sell if in position and data ends
+        if filled and (i == totalBars-1):
+            sell = order.Sell(sellOrderType, sellPrice)
+            filled = order.SubmitOrder(filled, "sell", sellOrderType, sell)
+            pnlChange = True
+            orderCount += 1
 
         # Backtest Prints Here
         if pnlChange:
