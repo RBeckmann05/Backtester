@@ -20,4 +20,6 @@ def ChartData(data, printProgress=False, indicatorData={}):
         for value in indicatorData.values():
             yList.append(value)
         ax.plot(xList, yList)
+    if printProgress:
+        print("Chart loading...")
     plt.show()
