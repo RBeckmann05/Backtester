@@ -13,11 +13,11 @@ def ChartData(data, printProgress=False, indicatorData={}):
     if len(indicatorData) > 0:
         xList = []
         yList = []
+        if printProgress:
+            print("Plotting indicator data...")
         for i in range(len(indicatorData)):
             xList.append(i)
         for value in indicatorData.values():
             yList.append(value)
-        if printProgress:
-            print("Plotting indicator data...")
         ax.plot(xList, yList)
     plt.show()
