@@ -17,5 +17,7 @@ def ChartData(data, printProgress=False, indicatorData={}):
             xList.append(i)
         for value in indicatorData.values():
             yList.append(value)
+        if printProgress:
+            print("Plotting indicator data...")
         ax.plot(xList, yList)
     plt.show()
