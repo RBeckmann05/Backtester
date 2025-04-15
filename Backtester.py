@@ -11,10 +11,10 @@ plotDetails = False
 plotChart = True
 
 if __name__ == "__main__":
-    rawData = GetRandomData()
-    #rawData = ObtainData()
+    #rawData = GetRandomData(10000, 300, 2000)
+    rawData = ObtainData(0, 9999)
     agg = Aggregator(rawData)
-    data = agg.AggregateData(1)
+    data = agg.AggregateData(5)
 
     loadedBars = {}
     totalBars = len(data)
@@ -66,4 +66,4 @@ if __name__ == "__main__":
         plt.show()
 
     if plotChart:
-        ChartData(data)
+        ChartData(data, True)
