@@ -1,16 +1,17 @@
 class OrderStatus:
-    def __init__(self, data):
+    def __init__(self, data, quantity):
         self.data = data
         self.marketPosition = 0
         self.buyPrice = 0
         self.sellPrice = 0
         self.netPnl = 0
         self.netPnlList = [0]
+        self.quantity = quantity
 
     def Buy(self, orderType, orderPrice):
         if orderType.lower().strip() == "market":
             buyPrice = orderPrice
-            self.marketPosition += 1
+            self.marketPosition += self.quantity
         elif orderType.lower().strip() == "limit":
             if orderPrice > self.data[len(self.data)-1][3]:
                 return "Order failed. Limit buy price must be below current close."
@@ -24,7 +25,7 @@ class OrderStatus:
     def Sell(self, orderType, orderPrice):
         if orderType.lower().strip() == "market":
             sellPrice = orderPrice
-            self.marketPosition -= 1
+            self.marketPosition -= self.quantity
         elif orderType.lower().strip() == "limit":
             if orderPrice < self.data[len(self.data)-1][3]:
                 return "Order failed. Limit sell price must be above current close."
@@ -43,7 +44,7 @@ class OrderStatus:
             return 0
     
     def CalculatePnl(self, buyPrice, sellPrice):
-        self.netPnl += sellPrice-buyPrice
+        self.netPnl += (sellPrice-buyPrice) * self.quantity
         self.netPnlList.append(self.netPnl)
         return sellPrice-buyPrice
         
