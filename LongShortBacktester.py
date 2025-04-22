@@ -6,27 +6,6 @@ from Randomizer import GetRandomData
 from Charter import ChartData
 from CalculateStats import Statistics
 import matplotlib.pyplot as plt
-'''
-def Strategy(data):
-    if order.marketPosition == 0:
-        if (low < sdvBelow):
-            order.Buy("market", close)
-        elif (high > sdvAbove):
-            order.Sell("market", close)
-
-    elif order.marketPosition != 0:
-        if (close > sma) and (order.marketPosition > 0):
-            order.Sell("market", close)
-        if (close < sma) and (order.marketPosition < 0):
-            order.Buy("market", close)
-    
-    if i == totalBars-1 and order.marketPosition != 0:
-        if order.marketPosition > 0:
-            order.Sell("market", close)
-        elif order.marketPosition < 0:
-            order.Buy("market", close)
-'''
-    
 
 if __name__ == "__main__":
     rawData = GetRandomData(20000, 10, 1000, 8000, 4000)
@@ -51,7 +30,7 @@ if __name__ == "__main__":
         low = ind.Low(0)
         high = ind.High(0)
         if i > 50:
-            indList = [sdvAbove, sdvBelow]   
+            indList = [sma, sdvAbove, sdvBelow]   
         else:
             indList = [close, close, close]
         indicatorData[i] = indList
@@ -81,6 +60,7 @@ if __name__ == "__main__":
     dataChange = loadedBars[len(loadedBars)-1][3] - loadedBars[0][3]
     alpha = order.netPnl - dataChange
     
+
     plt.plot(order.netPnlList)
     plt.show()
     ChartData(loadedBars, True, indicatorData)
