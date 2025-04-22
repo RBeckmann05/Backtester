@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-def ChartData(data, printProgress=False, indicatorData={}):
+def ChartData(data, printProgress=False, indicatorData={}, orderHistory={}):
     fig, ax = plt.subplots()
     for key, value in data.items():
         if printProgress:
