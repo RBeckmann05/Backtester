@@ -9,6 +9,7 @@ class Statistics:
 
         # Profit Data
         netProfit = tradeData[len(tradeData)-1]
+        alpha = netProfit - dataChange
         grossProfit = 0
         grossLoss = 0
         numWinners = 0
@@ -21,6 +22,7 @@ class Statistics:
                 grossLoss += tradeData[i] - tradeData[i-1]
                 numLosers += 1
         profitFactor = grossProfit / grossLoss
+        returnList.append(alpha)
         returnList.append(netProfit)
         returnList.append(grossProfit)
         returnList.append(grossLoss)
@@ -52,22 +54,13 @@ class Statistics:
         # Average winner/loser
         avgWinner = grossProfit / numWinners
         avgLoser = grossLoss / numLosers
+        averageTrade = netProfit/len(tradeData)
         returnList.append(numWinners)
         returnList.append(numLosers)
         returnList.append(avgWinner)
         returnList.append(avgLoser)
+        returnList.append(averageTrade)
 
-
-        print(f"Total net profit: ${round(netProfit, 2)}")
-        print(f"Gross profit: ${round(grossProfit, 2)}")
-        print(f"Gross loss: ${round(grossLoss, 2)}")
-        print(f"Profit factor: {round(profitFactor, 2)}")
-        print(f"Max. drawdown: {round(maxDD, 2)}")
-        print(f"Sharpe ratio: {round(sharpe, 2)}")
-        print(f"Number winning trades: {numWinners}")
-        print(f"Number losing trades: {numLosers}")
-        print(f"Average winning trade: {round(avgWinner, 2)}")
-        print(f"Average losing trade: {round(avgLoser, 2)}")
         return returnList
 
             
