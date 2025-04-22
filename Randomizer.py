@@ -3,12 +3,10 @@ import random
 #data = {0 : [10, 11, 9, 10, 1000], # Bar number : open, high, low, close, volume
 #        1 : [10, 12, 8, 10, 500]} 
 
-def GetRandomData(barsCount=1000, volatility=2, volumeLow=300, volumeHigh=1500, ogOpen=10, ogClose=10, ogVolume=1000):
+def GetRandomData(barsCount=1000, volatility=2, volumeLow=300, volumeHigh=1500, ogClose=10):
     data = {}
 
-    openPrice = ogOpen
     closePrice = ogClose
-    volume = ogVolume
 
     for i in range(barsCount):
         # Simulate a small change
