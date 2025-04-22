@@ -34,7 +34,7 @@ class Indicators:
         netSum = 0
         for i in range(min(period, len(self.data))):
             netSum += self.data[len(self.data)-(i+1)][3]
-        return netSum / period
+        return netSum / min(period, len(self.data))
     
     # Returns average true range
     def ATR(self, period):
@@ -45,7 +45,7 @@ class Indicators:
             prevClose = self.data[len(self.data)-(i+1)][0]
 
             TR = max((high - low), abs(high - prevClose), abs(low - prevClose))
-            atr += TR/period
+            atr += TR/min(period, len(self.data))
         return atr
     
     # Returns volume weighted moving average
@@ -54,7 +54,7 @@ class Indicators:
         volSum = 0
         for i in range(min(period, len(self.data))):
             volSum += self.data[len(self.data)-(i+1)][4]
-        volAvg = volSum/period
+        volAvg = volSum/min(period, len(self.data))
         for i in range(min(period, len(self.data))):
             volMult = round(self.data[len(self.data)-(i+1)][4]/volAvg)
             if volMult > 0:
@@ -78,10 +78,10 @@ class Indicators:
         sumForVar = 0
         for i in range(min(period, len(self.data))):
             netSum += self.data[len(self.data)-(i+1)][3]
-        mean = netSum/period
+        mean = netSum/min(period, len(self.data))
         for i in range(min(period, len(self.data))):
             sumForVar += (self.data[len(self.data)-(i+1)][3]-mean)**2
-        variance = sumForVar/n
+        variance = sumForVar/min(n, len(self.data))
         sdv = math.sqrt(variance)
         returnList.append(mean+(sdv*multiplier))
         returnList.append(mean-(sdv*multiplier))
