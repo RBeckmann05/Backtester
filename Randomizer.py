@@ -9,11 +9,15 @@ def GetRandomData(barsCount=1000, volatility=2, volumeLow=300, volumeHigh=1500, 
     closePrice = ogClose
 
     for i in range(barsCount):
-        # Simulate a small change
         openPrice = closePrice
-        high = openPrice + random.uniform(0, volatility)
-        low = openPrice - random.uniform(0, volatility)
-        closePrice = random.uniform(low, high)
+        closePrice += random.gauss(0, volatility)
+        high = max(openPrice, openPrice + abs(random.gauss(0, volatility)))
+        low = min(openPrice, openPrice - abs(random.gauss(0, volatility)))
+        # Simulate a small change
+        #openPrice = closePrice
+        #high = openPrice + random.uniform(0, volatility)
+        #low = openPrice - random.uniform(0, volatility)
+        #closePrice = random.uniform(low, high)
         volume = random.randint(volumeLow, volumeHigh)
 
         data[i] = [round(openPrice, 2), round(high, 2), round(low, 2), round(closePrice, 2), volume]
