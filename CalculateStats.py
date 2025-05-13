@@ -21,7 +21,10 @@ class Statistics:
             else:
                 grossLoss += tradeData[i] - tradeData[i-1]
                 numLosers += 1
-        profitFactor = grossProfit / grossLoss
+        if grossLoss != 0:
+            profitFactor = grossProfit / grossLoss
+        else:
+            profitFactor = grossProfit
         returnList.append(alpha)
         returnList.append(netProfit)
         returnList.append(grossProfit)
