@@ -20,6 +20,14 @@ def ChartData(data, printProgress=False, indicatorData={}, orderHistory={}):
         for value in indicatorData.values():
             yList.append(value)
         ax.plot(xList, yList)
+    if len(orderHistory) > 0:
+        for key, value in orderHistory.items():
+            if value[0].lower().strip() == "buy":
+                plt.plot((key, key+2, key+1, key), (value[1]-2, value[1]-2, value[1]-1, value[1]-2), color="green")
+                plt.fill((key, key+2, key+1, key), (value[1]-2, value[1]-2, value[1]-1, value[1]-2), color="green")
+            elif value[0].lower().strip() == "sell":
+                plt.plot((key, key+2, key+1, key), (value[1]+2, value[1]+2, value[1]+1, value[1]+2), color="red")
+                plt.fill((key, key+2, key+1, key), (value[1]+2, value[1]+2, value[1]+1, value[1]+2), color="red")
     if printProgress:
         print("Chart loading...")
     plt.show()
