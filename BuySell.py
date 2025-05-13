@@ -5,13 +5,16 @@ class OrderStatus:
         self.buyPrice = 0
         self.sellPrice = 0
         self.netPnl = 0
+        self.loadedBars = 0
         self.netPnlList = [0]
         self.quantity = quantity
+        self.orderHistory = {}
 
     def Buy(self, orderType, orderPrice):
         if orderType.lower().strip() == "market":
             buyPrice = orderPrice
             self.marketPosition += self.quantity
+            self.orderHistory[self.loadedBars] = ["buy", buyPrice]
         elif orderType.lower().strip() == "limit":
             if orderPrice > self.data[len(self.data)-1][3]:
                 return "Order failed. Limit buy price must be below current close."
@@ -26,6 +29,7 @@ class OrderStatus:
         if orderType.lower().strip() == "market":
             sellPrice = orderPrice
             self.marketPosition -= self.quantity
+            self.orderHistory[self.loadedBars] = ["sell", sellPrice]
         elif orderType.lower().strip() == "limit":
             if orderPrice < self.data[len(self.data)-1][3]:
                 return "Order failed. Limit sell price must be above current close."
@@ -47,7 +51,7 @@ class OrderStatus:
         self.netPnl += (sellPrice-buyPrice) * self.quantity
         self.netPnlList.append(self.netPnl)
         return sellPrice-buyPrice
-        
+    
     def SubmitOrder(self, status, orderType, speed, price):
         if speed.lower().strip() == "market":
             if orderType.lower().strip() == "buy":
